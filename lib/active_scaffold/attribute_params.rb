@@ -73,6 +73,7 @@ module ActiveScaffold
 
       if parent_record.new_record?
         parent_record.class.reflect_on_all_associations.each do |a|
+          next unless columns.include?(a.name)
           next unless [:has_one, :has_many].include?(a.macro) and not a.options[:through]
           next unless association_proxy = parent_record.send(a.name)
 
